@@ -1,6 +1,6 @@
 import { RefObject, useRef, useEffect } from "react";
 
-const drawCanvas = (ref: RefObject<HTMLCanvasElement>, width: number, height: number, points) => {
+const drawCanvas = (ref: RefObject<HTMLCanvasElement>, width: number, height: number, points: Entity[]) => {
   const canvas = ref.current;
   if(!canvas) return;
   const ctx = canvas.getContext("2d");
@@ -31,14 +31,18 @@ const drawCanvas = (ref: RefObject<HTMLCanvasElement>, width: number, height: nu
 
 };
 
-const Canvas = ({width, height, points}) => {
+type CanvasProps = {
+  width: number;
+  height: number;
+  points: Entity[];
+}
+
+const Canvas = ({width, height, points}: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     drawCanvas(canvasRef, width, height, points);
-  }, [points]);
-
-
+  }, [canvasRef, width, height, points]);
 
   return <canvas ref={canvasRef} width={width} height={height} />;
 };

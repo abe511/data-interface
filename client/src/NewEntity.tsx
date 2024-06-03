@@ -17,19 +17,23 @@ const handleInputChange = (e: ChangeEvent<HTMLInputElement>, setState: SetState)
 };
 
 const handleCreate = async (newEntityData: NewEntity, setEntities: SetState, setEntityData: SetState, setIsOpenEntityForm: SetState) => {
-  const response = await fetch(`${BASE_URL}/api/data/entity`, {
-    method: "POST",
-    body: JSON.stringify(newEntityData),
-    headers: {
-      "Content-type": "application/json"
-    }
-  });
-  const newEntity = await response.json();
-  console.log("new ent:", newEntity);
-  // check if response is ok
-  setEntities((prev: Entity[]) => [...prev, newEntity]);
-  setEntityData({x: 0, y: 0, name: "", labels: []});
-  setIsOpenEntityForm(false);
+  try {
+    const response = await fetch(`${BASE_URL}/api/data/entity`, {
+      method: "POST",
+      body: JSON.stringify(newEntityData),
+      headers: {
+        "Content-type": "application/json"
+      }
+    });
+    if(!response.ok) throw new Error("Failed to create a new entity");
+
+    const newEntity = await response.json();
+    setEntities((prev: Entity[]) => [...prev, newEntity]);
+    setEntityData({x: 0, y: 0, name: "", labels: []});
+    setIsOpenEntityForm(false);
+  } catch(error) {
+    console.log(error);
+  }
 };
 
 const handleCancel = (setEntityData: SetState, setIsOpenEntityForm: SetState) => {

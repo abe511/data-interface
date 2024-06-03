@@ -14,6 +14,16 @@ with open("db.json") as db_file:
 
 @app.route("/api/data/entities", methods=["GET"])
 def get_entities():
+  filters = {key: request.args.get(key) for key in ["startX", "startY", "endX", "endY"]}
+  all_filters = all([value is not None for value in filters.values()])
+
+  if(all_filters):
+    minX, minY, maxX, maxY = [int(value) for value in filters.values()]
+    filtered = []
+    for e in data:
+      if(e["x"] >= minX and e["x"] <= maxX and e["y"] >= minY and e["y"] <= maxY):
+        filtered.append(e)
+    return jsonify(filtered)
   return jsonify(data)
 
 

@@ -34,7 +34,7 @@ const Entity = ({ data, handleEdit, handleRemove, setEntities }: EntityProps) =>
   return (
     <section>
       <article onClick={() => setIsOpen((prev: boolean) => !prev)}>
-        <span>{`${data.id} ${data.name}`}</span>
+        <span>{`${data.name}`}</span>
         {isOpen
           ? <AngleUpIcon fill="white" stroke="white" width={16} height={16} />
           : <AngleDownIcon fill="white" stroke="white" width={16} height={16} />
@@ -53,7 +53,7 @@ const Entity = ({ data, handleEdit, handleRemove, setEntities }: EntityProps) =>
               {entityData.labels.map((label, idx) => {
                 return (
                   <article key={`${idx}${label}`}>
-                    <span >{label}</span>
+                    <span>{label}</span>
                     <button type="button" onClick={() => removeLabel(idx, setEntityData)}>x</button>
                   </article>
                 );

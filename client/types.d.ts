@@ -13,4 +13,12 @@ type NewEntity = {
   labels: string[];
 };
 
+type SelectionCoords = {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+};
+
+
 type SetState = Dispatch<S | SetStateAction<S>>;
