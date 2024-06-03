@@ -1,0 +1,23 @@
+
+[
+  {"id":"dc940b8e-c7c5-4d87-bd4d-ec68b05891e6","name":"Amalita","x":76,"y":23,"labels":["Maia","Cello","Lutero"]},
+  {"id":"ff124645-3b0b-41e7-8c76-4c24b4701a80","name":"Nehemiah","x":49,"y":58,"labels":["Bobbi","Valentine"]},
+  {"id":"0a9766e3-c884-4a57-bab0-ae41a49b6309","name":"Christophe","x":81,"y":6,"labels":["Dilly","Ivan","Farr"]},
+  {"id":"c6fc011b-ba64-4961-9c44-b70ff3d0cc1c","name":"Moshe","x":67,"y":8,"labels":["Lorri","Wilton","Fonz"]},
+  {"id":"fb6ee814-6131-45d8-a4eb-bf01a23b3c07","name":"Dav","x":99,"y":58,"labels":["Gordie"]},
+  {"id":"5e3b7852-2fab-4d43-9a49-5e32fae1e703","name":"Genovera","x":34,"y":64,"labels":["Carry","Glynda"]},
+  {"id":"e47a9093-c9f9-4e2e-842b-1d4e2f0f222e","name":"Cybil","x":72,"y":47,"labels":["Kellie","Rhoda"]},
+  {"id":"ccda652d-1373-4665-bbba-0211e4f13051","name":"Adela","x":26,"y":94,"labels":["Berri","Phillie","Chilton","Dode","Rachel"]},
+  {"id":"dc8cb01a-9373-488d-a5a8-c0118c4056fe","name":"Amil","x":80,"y":76,"labels":["Roarke","Ardine","Joycelin","Laetitia"]},
+  {"id":"0e680ea9-4ae2-4450-8fe3-448967486b62","name":"Donovan","x":73,"y":84,"labels":["Giorgi","Roby","Seth"]},
+  {"id":"25491e4e-04a9-4be2-9027-051c9b254a37","name":"Aldrich","x":89,"y":59,"labels":["Kelby","Thurstan"]},
+  {"id":"3e12e949-b49f-46ff-82f9-d616a5761b03","name":"Joycelin","x":71,"y":18,"labels":["Brietta","Rodger"]},
+  {"id":"7bc0d3eb-65e5-4495-9ed9-032d86a39c21","name":"Rogerio","x":74,"y":53,"labels":["Moria","Isa","Klemens"]},
+  {"id":"71b03ab5-66b4-46e7-89ae-95f277beb5c6","name":"Gideon","x":88,"y":86,"labels":["Mackenzie"]},
+  {"id":"21cfcc76-d853-4a78-a1fc-9e8c0d532a2e","name":"Felicia","x":79,"y":24,"labels":["Dudley","Zared"]},
+  {"id":"f7c5857d-fa08-4e30-a2a8-a4c0f13a2dee","name":"Morna","x":18,"y":22,"labels":["Enid","Barty","Arlyn"]},
+  {"id":"d82acc85-80e5-45af-9a52-25044d419a50","name":"Haleigh","x":3,"y":86,"labels":["Gianni","Marten"]},
+  {"id":"a2f735b4-5f11-4dca-bd74-e8c722df5537","name":"Jesus","x":28,"y":22,"labels":["Orion","Mace","Shaine"]},
+  {"id":"f38781b6-4730-4d3e-9155-9358ecf72e76","name":"Chandra","x":20,"y":19,"labels":["Ethelbert","Sydney","Rori","Taber"]},
+  {"id":"73903d05-fa4e-4516-b02a-f04dfdc86780","name":"Fifine","x":29,"y":8,"labels":["Cassandry","Dar","Carmelle"]}
+]
