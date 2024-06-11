@@ -1,18 +1,24 @@
+import { useAppSelector } from "./hooks/redux";
+import { useGetSelectedEntitiesQuery } from "./redux/entityApiSlice";
 import SelectedEntity from "./SelectedEntity";
 
-type SelectionListProps = {
-  selected: Entity[];
-}
 
-const SelectionList = ({ selected }: SelectionListProps) => {
+const SelectionList = () => {
+  const coords = useAppSelector(state => state.selectedList.coords);
+  const {data: selected, error, isLoading} = useGetSelectedEntitiesQuery(coords);
+
   return (
-    <ul>
-      {selected.map((entity: Entity) => {
-        return (
-          <SelectedEntity key={entity.id} data={entity} />
-        );
-      })}
-  </ul>
+    <>
+      {isLoading && <p>Loading selected entities...</p>}
+      {error && <p>Error: Could not load selected entities</p>}
+      <ul>
+        {selected && selected.map((entity: Entity) => {
+          return (
+            <SelectedEntity key={entity.id} data={entity} />
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

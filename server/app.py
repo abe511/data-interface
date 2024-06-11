@@ -14,9 +14,11 @@ with open("db.json") as db_file:
 
 @app.route("/api/data/entities", methods=["GET"])
 def get_entities():
-  filters = {key: request.args.get(key) for key in ["startX", "startY", "endX", "endY"]}
+  filters = {key: request.args.get(key) for key in ["xMin", "yMin", "xMax", "yMax"]}
   all_filters = all([value is not None for value in filters.values()])
-
+  # simulate network latency
+  for i in range(50000000):
+    continue
   if(all_filters):
     minX, minY, maxX, maxY = [int(value) for value in filters.values()]
     filtered = []
@@ -56,8 +58,9 @@ def update_entity(id):
 @app.route("/api/data/entity/<string:id>", methods=["DELETE"])
 def remove_entity(id):
   global data
+  length = len(data)
   data = [entity for entity in data if entity["id"] != id]
-  return jsonify({"success": "Entity removed"})
+  return jsonify({"success": len(data) == length - 1, "id": id})
 
 
 if __name__  == "__main__":

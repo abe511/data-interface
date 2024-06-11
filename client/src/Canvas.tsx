@@ -1,4 +1,5 @@
 import { RefObject, useRef, useEffect } from "react";
+import { useGetEntitiesQuery } from "./redux/entityApiSlice";
 
 const drawCanvas = (ref: RefObject<HTMLCanvasElement>, width: number, height: number, points: Entity[]) => {
   const canvas = ref.current;
@@ -21,24 +22,25 @@ const drawCanvas = (ref: RefObject<HTMLCanvasElement>, width: number, height: nu
   ctx.strokeStyle = "#ddd";
   ctx.stroke();
 
-  points.forEach((point) => {
-    console.log(point);
-    ctx.beginPath();
-    ctx.fillStyle = "green";
-    ctx.arc(point.x + width / 2, point.y + height / 2, 5, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
+  if(points.length) {
+    points.forEach((point) => {
+      // console.log(point);
+      ctx.beginPath();
+      ctx.fillStyle = "green";
+      ctx.arc(point.x + width / 2, point.y + height / 2, 5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
 };
 
 type CanvasProps = {
   width: number;
   height: number;
-  points: Entity[];
 }
 
-const Canvas = ({width, height, points}: CanvasProps) => {
+const Canvas = ({width, height}: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const {data: points = []} = useGetEntitiesQuery();
 
   useEffect(() => {
     drawCanvas(canvasRef, width, height, points);

@@ -1,12 +1,9 @@
 import { useState, ChangeEvent } from "react";
+import { useAddEntityMutation } from "./redux/entityApiSlice";
+import { setOpenForm } from "./redux/appSlice";
+import { useAppDispatch } from "./hooks/redux";
 
-const BASE_URL = "http://127.0.0.1:5000";
-
-
-type NewEntityProps = {
-  setEntities: SetState,
-  setIsOpenEntityForm: SetState,
-};
+const resetFormData = {x: 0, y: 0, name: "", labels: []};
 
 const handleInputChange = (e: ChangeEvent<HTMLInputElement>, setState: SetState) => {
   if(!(e.target.name === "x" || e.target.name === "y")) {
@@ -16,44 +13,35 @@ const handleInputChange = (e: ChangeEvent<HTMLInputElement>, setState: SetState)
   }
 };
 
-const handleCreate = async (newEntityData: NewEntity, setEntities: SetState, setEntityData: SetState, setIsOpenEntityForm: SetState) => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/data/entity`, {
-      method: "POST",
-      body: JSON.stringify(newEntityData),
-      headers: {
-        "Content-type": "application/json"
-      }
-    });
-    if(!response.ok) throw new Error("Failed to create a new entity");
 
-    const newEntity = await response.json();
-    setEntities((prev: Entity[]) => [...prev, newEntity]);
-    setEntityData({x: 0, y: 0, name: "", labels: []});
-    setIsOpenEntityForm(false);
-  } catch(error) {
-    console.log(error);
-  }
-};
-
-const handleCancel = (setEntityData: SetState, setIsOpenEntityForm: SetState) => {
-  setEntityData({x: 0, y: 0, name: "", labels: []});
-  setIsOpenEntityForm(false);
-};
-
-const addLabel = (newLabel: string, setEntityData: SetState, setNewLabel: SetState) => {
-  setEntityData((prev: Entity) => ({...prev, labels: [...prev.labels, newLabel]}));
-  setNewLabel('');
-};
-
-const removeLabel = (labelIndex: number, setEntityData: SetState) => {
-  setEntityData((prev: Entity) => ({...prev, labels: prev.labels.filter((_, idx) => idx !== labelIndex)}));
-};
-
-
-const NewEntity = ({ setEntities, setIsOpenEntityForm }: NewEntityProps) => {
-  const [newEntityData, setEntityData] = useState({x: 0, y: 0, name: "", labels: []});
+const NewEntity = () => {
+  const [newEntityData, setEntityData] = useState(resetFormData);
   const [newLabel, setNewLabel ] = useState("");
+  
+  const [addEntity] = useAddEntityMutation();
+
+  const dispatch = useAppDispatch();
+
+  const handleCancel = () => {
+    setEntityData(resetFormData);
+    dispatch(setOpenForm(false));
+  };
+  
+  const handleCreate = async () => {
+    // VALIDATE NEW ENTITY INPUT
+    await addEntity(newEntityData).unwrap();
+    handleCancel();
+  };
+  
+  const addLabel = (newLabel: string, setEntityData: SetState) => {
+    setEntityData((prev: Entity) => ({...prev, labels: [...prev.labels, newLabel]}));
+    setNewLabel('');
+  };
+  
+  const removeLabel = (labelIndex: number, setEntityData: SetState) => {
+    setEntityData((prev: Entity) => ({...prev, labels: prev.labels.filter((_, idx) => idx !== labelIndex)}));
+  };
+
 
   return (
     <>
@@ -75,10 +63,10 @@ const NewEntity = ({ setEntities, setIsOpenEntityForm }: NewEntityProps) => {
           })}
         </section>
         <input name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
-        <button type="button" onClick={() => addLabel(newLabel, setEntityData, setNewLabel)}>Add</button>
+        <button type="button" onClick={() => addLabel(newLabel, setEntityData)}>Add</button>
       </article>
-      <button type="button" onClick={() => handleCreate(newEntityData, setEntities, setEntityData ,setIsOpenEntityForm)}>Create</button>
-      <button type="button" onClick={() => handleCancel(setEntityData ,setIsOpenEntityForm)}>Cancel</button>
+      <button type="button" onClick={() => handleCreate()}>Create</button>
+      <button type="button" onClick={() => handleCancel()}>Cancel</button>
     </>
   );
 };

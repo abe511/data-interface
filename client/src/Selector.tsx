@@ -1,44 +1,52 @@
-import { ChangeEvent, useState } from "react";
+import { useRef, RefObject } from "react";
+import { useAppSelector, useAppDispatch } from "./hooks/redux";
+import { setCoords } from "./redux/selectedListSlice";
+import { ActionCreatorWithPayload, Dispatch } from "@reduxjs/toolkit";
 
-const BASE_URL = "http://127.0.0.1:5000";
+type InputRef = RefObject<HTMLInputElement>;
 
-const handleCoordChange = (e: ChangeEvent<HTMLInputElement>, setCoords: SetState) => {
-  if (e.target.value === "" || !isNaN(parseInt(e.target.value))) {
-    setCoords((prev: SelectionCoords) => ({...prev, [e.target.name]: e.target.value === "" ? 0 : parseInt(e.target.value)}))
+const validateInput = (inputs: InputRef[]) => {
+  const res: boolean[] = inputs.map((input) => {
+    if(/^\d*$/.test(input.current!.value)) {
+      input.current!.style.borderColor = "initial";
+      return true;
+    }
+    input.current!.style.borderColor = "crimson";
+    return false;
+  });
+  return res.every(el => el);
+};
+
+const handleSelect = (dispatch: Dispatch, setCoords: ActionCreatorWithPayload<Partial<Coords>>, xMinRef: InputRef, yMinRef: InputRef, xMaxRef: InputRef, yMaxRef: InputRef) => {
+  if(validateInput([xMinRef, yMinRef, xMaxRef, yMaxRef])) {
+    const xMin = xMinRef.current!.value;
+    const yMin = yMinRef.current!.value;
+    const xMax = xMaxRef.current!.value;
+    const yMax = yMaxRef.current!.value;
+    dispatch(setCoords({xMin: parseInt(xMin), yMin: parseInt(yMin), xMax: parseInt(xMax), yMax: parseInt(yMax)}));
   }
 };
 
-const selectEntities = async ({ startX, startY, endX, endY }: SelectionCoords, setSelected: SetState) => {
-  const params = {startX: startX.toString(), startY: startY.toString(), endX: endX.toString(), endY: endY.toString()};
-  const query = new URLSearchParams(params).toString();
-  try {
-    const response = await fetch(`${BASE_URL}/api/data/entities?${query}`, {method: "GET"});
-    if(!response.ok) throw Error("Failed to get selected data");
-    const selected = await response.json();
-    setSelected(selected);
-  } catch(error) {
-    console.log(error);
-  }
-};
+const Selector = () => {
+  const coords = useAppSelector((state) => state.selectedList.coords);
+  const xMinRef = useRef<HTMLInputElement>(null);
+  const yMinRef = useRef<HTMLInputElement>(null);
+  const xMaxRef = useRef<HTMLInputElement>(null);
+  const yMaxRef = useRef<HTMLInputElement>(null);
 
-type SelectorProps = {
-  setSelected: SetState
-}
-
-const Selector = ({ setSelected }: SelectorProps) => {
-  const [ coords, setCoords ] = useState({startX: 0, startY: 0, endX: 0, endY: 0});
+  const dispatch = useAppDispatch();
 
   return (
     <>
-      <label htmlFor="startX">Start X:</label>
-      <input id="startX" type="text" name="startX" value={coords.startX} onChange={(e) => handleCoordChange(e, setCoords)} />
-      <label htmlFor="startY">Start Y:</label>
-      <input id="startY" type="text" name="startY" value={coords.startY} onChange={(e) => handleCoordChange(e, setCoords)} />
-      <label htmlFor="endX">End X:</label>
-      <input id="endX" type="text" name="endX" value={coords.endX} onChange={(e) => handleCoordChange(e, setCoords)} />
-      <label htmlFor="endY">End Y:</label>
-      <input id="endY" type="text" name="endY" value={coords.endY} onChange={(e) => handleCoordChange(e, setCoords)} />
-      <button type="button" onClick={() => selectEntities(coords, setSelected)}>Select</button>
+      <label htmlFor="xMin">Start X:</label>
+      <input id="xMin" type="text" name="xMin" ref={xMinRef} defaultValue={coords.xMin} />
+      <label htmlFor="yMin">Start Y:</label>
+      <input id="yMin" type="text" name="yMin" ref={yMinRef} defaultValue={coords.yMin} />
+      <label htmlFor="xMax">End X:</label>
+      <input id="xMax" type="text" name="xMax" ref={xMaxRef} defaultValue={coords.xMax} />
+      <label htmlFor="yMax">End Y:</label>
+      <input id="yMax" type="text" name="yMax" ref={yMaxRef} defaultValue={coords.yMax} />
+      <button type="button" onClick={() =>  handleSelect(dispatch, setCoords, xMinRef, yMinRef, xMaxRef, yMaxRef)}>Select</button>
     </>
   );
 };
