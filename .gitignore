@@ -1,6 +1,10 @@
 server/venv/
 server/__pycache__/
+
 client/node_modules
+client/dist
+client/dist-ssr
+client/*.local
 
 # Logs
 logs
@@ -10,11 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
 
 # Editor directories and files
 .vscode/*
