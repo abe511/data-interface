@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type SelectedListState = {
-  selected: Entity[],
+  selected: [] | Entity[] | undefined,
   coords: Coords;
 } 
 
@@ -16,7 +16,7 @@ export const selectedListSlice = createSlice({
   name: "selectedList",
   initialState,
   reducers: {
-    setSelected: (state, action: PayloadAction<Entity[]>) => {
+    setSelected: (state, action: PayloadAction<[] | Entity[] | undefined>) => {
       state.selected = action.payload;
     },
     setCoords: (state, action: PayloadAction<Partial<Coords>>) => {
