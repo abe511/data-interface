@@ -44,30 +44,38 @@ const NewEntity = () => {
 
 
   return (
-    <>
-      <article>
+    <article className="new-entity">
+      <div>
         <label htmlFor="name">Name:</label>
-        <input id="name" name="name" value={newEntityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
+        <input className="text-input" id="name" name="name" value={newEntityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
+      </div>
+      <div>
         <label htmlFor="x-coord">X:</label>
-        <input id="x-coord" name="x" value={newEntityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
+        <input className="number-input" id="x-coord" name="x" value={newEntityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
+      </div>
+      <div>
         <label htmlFor="y-coord">Y:</label>
-        <input id="y-coord" name="y"  value={newEntityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
-        <section>
-          {newEntityData.labels.map((label, idx) => {
-            return (
-              <article key={`${idx}${label}`}>
-                <span >{label}</span>
-                <button type="button" onClick={() => removeLabel(idx, setEntityData)}>x</button>
-              </article>
-            );
-          })}
-        </section>
-        <input name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
+        <input className="number-input" id="y-coord" name="y"  value={newEntityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
+      </div>
+      <section>
+        {newEntityData.labels.map((label, idx) => {
+          return (
+            <article key={`${idx}${label}`}>
+              <span >{label}</span>
+              <button type="button" onClick={() => removeLabel(idx, setEntityData)}>x</button>
+            </article>
+          );
+        })}
+      </section>
+      <div>
+        <input className="text-input" name="label" placeholder="New label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
         <button type="button" onClick={() => addLabel(newLabel, setEntityData)}>Add</button>
-      </article>
-      <button type="button" onClick={() => handleCreate()}>Create</button>
-      <button type="button" onClick={() => handleCancel()}>Cancel</button>
-    </>
+      </div>
+      <div>
+        <button type="button" onClick={() => handleCreate()}>Create</button>
+        <button type="button" onClick={() => handleCancel()}>Cancel</button>
+      </div>
+    </article>
   );
 };
 

@@ -23,17 +23,17 @@ const SelectorInteractive = () => {
   }, [coords, skipFetching]);
 
   return (
-    <>
+    <article className="selector">
       <label htmlFor="xMin">Start X:</label>
-      <input id="xMin" type="text" name="xMin" value={coords.xMin} onChange={(e) => handleCoordChange(e, dispatch)} />
+      <input className="number-input" id="xMin" type="text" name="xMin" value={coords.xMin} onChange={(e) => handleCoordChange(e, dispatch)} />
       <label htmlFor="yMin">Start Y:</label>
-      <input id="yMin" type="text" name="yMin" value={coords.yMin} onChange={(e) => handleCoordChange(e, dispatch)} />
+      <input className="number-input" id="yMin" type="text" name="yMin" value={coords.yMin} onChange={(e) => handleCoordChange(e, dispatch)} />
       <label htmlFor="xMax">End X:</label>
-      <input id="xMax" type="text" name="xMax" value={coords.xMax} onChange={(e) => handleCoordChange(e, dispatch)} />
+      <input className="number-input" id="xMax" type="text" name="xMax" value={coords.xMax} onChange={(e) => handleCoordChange(e, dispatch)} />
       <label htmlFor="yMax">End Y:</label>
-      <input id="yMax" type="text" name="yMax" value={coords.yMax} onChange={(e) => handleCoordChange(e, dispatch)} />
+      <input className="number-input" id="yMax" type="text" name="yMax" value={coords.yMax} onChange={(e) => handleCoordChange(e, dispatch)} />
       <button type="button" onClick={() => refetch()}>Select</button>
-    </>
+    </article>
   );
 };
 

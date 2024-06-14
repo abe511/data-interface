@@ -37,17 +37,25 @@ const Selector = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <>
-      <label htmlFor="xMin">Start X:</label>
-      <input id="xMin" type="text" name="xMin" ref={xMinRef} defaultValue={coords.xMin} />
-      <label htmlFor="yMin">Start Y:</label>
-      <input id="yMin" type="text" name="yMin" ref={yMinRef} defaultValue={coords.yMin} />
-      <label htmlFor="xMax">End X:</label>
-      <input id="xMax" type="text" name="xMax" ref={xMaxRef} defaultValue={coords.xMax} />
-      <label htmlFor="yMax">End Y:</label>
-      <input id="yMax" type="text" name="yMax" ref={yMaxRef} defaultValue={coords.yMax} />
+    <article className="selector">
+      <div>
+        <label htmlFor="xMin">Start X:</label>
+        <input className="number-input" id="xMin" type="text" name="xMin" ref={xMinRef} defaultValue={coords.xMin} />
+      </div>
+      <div>
+        <label htmlFor="yMin">Start Y:</label>
+        <input className="number-input" id="yMin" type="text" name="yMin" ref={yMinRef} defaultValue={coords.yMin} />
+      </div>
+      <div>
+        <label htmlFor="xMax">End X:</label>
+        <input className="number-input" id="xMax" type="text" name="xMax" ref={xMaxRef} defaultValue={coords.xMax} />
+      </div>
+      <div>
+        <label htmlFor="yMax">End Y:</label>
+        <input className="number-input" id="yMax" type="text" name="yMax" ref={yMaxRef} defaultValue={coords.yMax} />
+      </div>
       <button type="button" onClick={() =>  handleSelect(dispatch, setCoords, xMinRef, yMinRef, xMaxRef, yMaxRef)}>Select</button>
-    </>
+    </article>
   );
 };
 

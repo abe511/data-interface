@@ -9,7 +9,7 @@ import { useGetEntitiesQuery } from "./redux/entityApiSlice";
   // console.log("data", data);
 
   return (
-    <>
+    <aside className="entity-list">
       {isLoading && <p>Loading entity list...</p>} 
       {error && <p>Error: Could not load entity list</p>} 
       <ul>
@@ -20,7 +20,7 @@ import { useGetEntitiesQuery } from "./redux/entityApiSlice";
           })
         }
       </ul>
-    </>
+    </aside>
   );
 };
 
