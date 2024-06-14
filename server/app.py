@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from uuid import uuid4
 import json
-
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -17,8 +17,7 @@ def get_entities():
   filters = {key: request.args.get(key) for key in ["xMin", "yMin", "xMax", "yMax"]}
   all_filters = all([value is not None for value in filters.values()])
   # simulate network latency
-  for i in range(50000000):
-    continue
+  # time.sleep(1)
   if(all_filters):
     minX, minY, maxX, maxY = [int(value) for value in filters.values()]
     filtered = []
