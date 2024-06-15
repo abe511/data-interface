@@ -19,7 +19,7 @@ def get_entities():
   # simulate network latency
   # time.sleep(1)
   if(all_filters):
-    minX, minY, maxX, maxY = [int(value) for value in filters.values()]
+    minX, minY, maxX, maxY = [float(value) for value in filters.values()]
     filtered = []
     for e in data:
       if(e["x"] >= minX and e["x"] <= maxX and e["y"] >= minY and e["y"] <= maxY):
