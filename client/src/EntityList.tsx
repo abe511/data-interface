@@ -5,9 +5,6 @@ import { useGetEntitiesQuery } from "./redux/entityApiSlice";
   const EntityList = () => {
   const {data: entities, error, isLoading} = useGetEntitiesQuery();
 
-  // console.log("loading", isLoading, error);
-  // console.log("data", data);
-
   return (
     <aside className="entity-list">
       {isLoading && <p>Loading entity list...</p>} 

@@ -3,6 +3,8 @@ import { useAppSelector, useAppDispatch } from "./hooks/redux";
 import { setCoords } from "./redux/selectedListSlice";
 import { ActionCreatorWithPayload, Dispatch } from "@reduxjs/toolkit";
 
+import "./styles/Selector.css";
+
 type InputRef = RefObject<HTMLInputElement>;
 
 const validateInput = (inputs: InputRef[]) => {
@@ -40,21 +42,21 @@ const Selector = () => {
     <article className="selector">
       <div>
         <label htmlFor="xMin">Start X:</label>
-        <input className="number-input" id="xMin" type="text" name="xMin" ref={xMinRef} defaultValue={coords.xMin} />
+        <input id="xMin" type="text" name="xMin" ref={xMinRef} defaultValue={coords.xMin} />
       </div>
       <div>
         <label htmlFor="yMin">Start Y:</label>
-        <input className="number-input" id="yMin" type="text" name="yMin" ref={yMinRef} defaultValue={coords.yMin} />
+        <input id="yMin" type="text" name="yMin" ref={yMinRef} defaultValue={coords.yMin} />
       </div>
       <div>
         <label htmlFor="xMax">End X:</label>
-        <input className="number-input" id="xMax" type="text" name="xMax" ref={xMaxRef} defaultValue={coords.xMax} />
+        <input id="xMax" type="text" name="xMax" ref={xMaxRef} defaultValue={coords.xMax} />
       </div>
       <div>
         <label htmlFor="yMax">End Y:</label>
-        <input className="number-input" id="yMax" type="text" name="yMax" ref={yMaxRef} defaultValue={coords.yMax} />
+        <input id="yMax" type="text" name="yMax" ref={yMaxRef} defaultValue={coords.yMax} />
       </div>
-      <button type="button" onClick={() =>  handleSelect(dispatch, setCoords, xMinRef, yMinRef, xMaxRef, yMaxRef)}>Select</button>
+      <button className="select-btn" type="button" onClick={() =>  handleSelect(dispatch, setCoords, xMinRef, yMinRef, xMaxRef, yMaxRef)}>Select</button>
     </article>
   );
 };

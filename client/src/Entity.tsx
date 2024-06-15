@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from "react"; 
-import { AngleUpIcon, AngleDownIcon } from "./Icons";
+import { AngleUpIcon, AngleDownIcon, CloseIcon } from "./Icons";
 import { useUpdateEntityMutation, useDeleteEntityMutation } from "./redux/entityApiSlice";
 
+import "./styles/Entity.css";
 
 type EntityProps = {
   data: Entity;
@@ -43,8 +44,8 @@ const Entity = ({ data }: EntityProps) => {
   };
 
   return (
-    <section>
-      <article onClick={() => setIsOpen((prev: boolean) => !prev)}>
+    <section className="entity">
+      <article className={`entity-closed ${isOpen ? "entity-open": ""}`} onClick={() => setIsOpen((prev: boolean) => !prev)}>
         <span>{`${data.name}`}</span>
         {isOpen
           ? <AngleUpIcon fill="white" stroke="white" width={16} height={16} />
@@ -52,30 +53,40 @@ const Entity = ({ data }: EntityProps) => {
         }
       </article>
       {isOpen &&
-        <>
-          <article>
-            <label htmlFor="name">Name:</label>
-            <input id="name" name="name" value={entityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
-            <label htmlFor="x-coord">X:</label>
-            <input id="x-coord" name="x" value={entityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
-            <label htmlFor="y-coord">Y:</label>
-            <input id="y-coord" name="y"  value={entityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
-            <section>
+        <form className="entity-form">
+          <article className="entity-fields">
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input id="name" name="name" value={entityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
+            </div>
+            <div>
+              <label htmlFor="x-coord">X:</label>
+              <input id="x-coord" name="x" value={entityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
+            </div>
+            <div>
+              <label htmlFor="y-coord">Y:</label>
+              <input id="y-coord" name="y"  value={entityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
+            </div>
+            <section className="label-section">
               {entityData.labels.map((label, idx) => {
                 return (
-                  <article key={`${idx}${label}`}>
-                    <span>{label}</span>
-                    <button type="button" onClick={() => removeLabel(idx)}>x</button>
+                  <article className="label-container" key={`${idx}${label}`}>
+                    <span className="entity-label">{label}</span>
+                    <CloseIcon className="label-close-btn" fill="white" stroke="white" width={16} height={16} onClick={() => removeLabel(idx)} />
                   </article>
                 );
               })}
             </section>
-            <input name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
-            <button type="button" onClick={() => addLabel()}>Add</button>
+            <section className="new-label-container">
+              <input className="new-label-input" name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
+              <button className="new-label-add-btn" type="button" onClick={() => addLabel()}>Add</button>
+            </section>
           </article>
-          <button type="button" onClick={() => handleEdit(entityData, setIsOpen)}>Save</button>
-          <button type="button" onClick={() => handleRemove(data.id)} disabled={!isUninitializedDelete}>Remove</button>
-        </>
+          <div className="entity-buttons">
+            <button className="entity-save-btn" type="button" onClick={() => handleEdit(entityData, setIsOpen)}>Save</button>
+            <button className="entity-remove-btn" type="button" onClick={() => handleRemove(data.id)} disabled={!isUninitializedDelete}>Remove</button>
+          </div>
+        </form>
       }
     </section>
   );

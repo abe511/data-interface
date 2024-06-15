@@ -1,6 +1,8 @@
 import { useState } from "react"; 
 import { AngleUpIcon, AngleDownIcon } from "./Icons";
 
+import "./styles/Entity.css";
+
 type SelectedEntityProps = {
   data: Entity;
 }
@@ -9,8 +11,8 @@ const SelectedEntity = ({ data }: SelectedEntityProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section>
-      <article onClick={() => setIsOpen((prev: boolean) => !prev)}>
+    <section className="selected-entity">
+      <article className={`entity-closed ${isOpen ? "entity-open": ""}`} onClick={() => setIsOpen((prev: boolean) => !prev)}>
         <span>{`${data.name}`}</span>
         {isOpen
           ? <AngleUpIcon fill="white" stroke="white" width={16} height={16} />
@@ -18,11 +20,11 @@ const SelectedEntity = ({ data }: SelectedEntityProps) => {
         }
       </article>
       {isOpen &&
-        <section>
+        <section className="selected-label-section">
           {data.labels.map((label, idx) => {
             return (
-              <article key={`${idx}${label}`}>
-                <span>{label}</span>
+              <article className="selected-label-container" key={`${idx}${label}`}>
+                <span className="entity-label">{label}</span>
               </article>
             );
           })}

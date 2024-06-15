@@ -42,7 +42,7 @@ const drawPoints = (ctx: CanvasRenderingContext2D, points: Entity[], selected: [
     }
     if(isSelected) ++j;
     ctx.beginPath();
-    ctx.fillStyle = isSelected ? "red" : "green";
+    ctx.fillStyle = isSelected ? "gold" : "silver";
     ctx.arc(points[i].x + ctx.canvas.clientWidth * 0.5, -points[i].y + ctx.canvas.clientHeight * 0.5, isSelected ? 2 : 1, 0, Math.PI * 2);
     ctx.fill();
   }
@@ -51,8 +51,8 @@ const drawPoints = (ctx: CanvasRenderingContext2D, points: Entity[], selected: [
 const drawRegion = (ctx: CanvasRenderingContext2D, region: Coords | null) => {
   if(region){
     const {xMin, yMin, xMax, yMax} = region;
-    ctx.fillStyle = "#3331";
-    ctx.strokeStyle = "#333";
+    ctx.fillStyle = "#aaa1";
+    ctx.strokeStyle = "#eee";
     ctx.lineWidth = 1;
     ctx.setLineDash([5, 3]);
     ctx.fillRect(xMin, yMin, xMax - xMin, yMax - yMin);
@@ -68,7 +68,7 @@ const drawCanvas = (ref: RefObject<HTMLCanvasElement>) => {
   if(!ctx) return;
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
-  ctx.fillStyle = "whitesmoke";
+  ctx.fillStyle = "#1a1a1a";
   ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 
   const centerWidth = canvas.clientWidth * 0.5;
@@ -83,7 +83,7 @@ const drawCanvas = (ref: RefObject<HTMLCanvasElement>) => {
     ctx.lineTo(i, canvas.clientHeight);
     ctx.moveTo(j, 0);
     ctx.lineTo(j, canvas.clientHeight);
-    ctx.strokeStyle = i === centerWidth ? "#111" : "#aaa";
+    ctx.strokeStyle = i === centerWidth ? "#000" : "#151515";
     ctx.stroke();
   }
 
@@ -94,7 +94,7 @@ const drawCanvas = (ref: RefObject<HTMLCanvasElement>) => {
     ctx.lineTo(canvas.clientWidth, i);
     ctx.moveTo(0, j);
     ctx.lineTo(canvas.clientWidth, j);
-    ctx.strokeStyle = i === centerHeight ? "#111" : "#aaa";
+    ctx.strokeStyle = i === centerHeight ? "#111" : "#151515";
     ctx.stroke();
   }
 

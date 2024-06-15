@@ -1,0 +1,55 @@
+.main-container {
+  @apply flex w-dvw h-dvh;
+}
+
+.display-container {
+  @apply flex-col w-full ;
+}
+
+.canvas-wrapper {
+  @apply w-full h-3/6;
+}
+
+canvas {
+  @apply w-full h-full rounded-md;
+}
+
+.controls-container {
+  @apply flex w-full h-3/6;
+}
+
+.selector-container {
+  @apply flex-col w-6/12 h-full;
+}
+
+.selector-mode-switch {
+  @apply flex p-2 gap-2;
+  }
+
+#interactive {
+  @apply w-4;
+}
+
+.selector {
+  @apply flex flex-col;
+}
+
+.list-container {
+  @apply flex w-full overflow-y-hidden;
+}
+
+.entity-list {
+  @apply w-2/4 overflow-y-scroll;
+}
+
+.selection-list {
+  @apply w-2/4 overflow-y-scroll;
+}
+
+.new-entity-container {
+  @apply flex flex-col p-2 w-6/12;
+}
+
+.add-entity-btn {
+  @apply py-1 w-full border-neutral-700 border rounded-md hover:bg-neutral-700;
+}

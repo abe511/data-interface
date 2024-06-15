@@ -2,6 +2,10 @@ import { useState, ChangeEvent } from "react";
 import { useAddEntityMutation } from "./redux/entityApiSlice";
 import { setOpenForm } from "./redux/appSlice";
 import { useAppDispatch } from "./hooks/redux";
+import { CloseIcon } from "./Icons";
+
+import "./styles/Entity.css";
+
 
 const resetFormData = {x: 0, y: 0, name: "", labels: []};
 
@@ -44,38 +48,40 @@ const NewEntity = () => {
 
 
   return (
-    <article className="new-entity">
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input className="text-input" id="name" name="name" value={newEntityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
+    <form className="new-entity-form">
+      <article className="entity-fields">
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input id="name" name="name" value={newEntityData.name} onChange={(e) => handleInputChange(e, setEntityData)} />
+        </div>
+        <div>
+          <label htmlFor="x-coord">X:</label>
+          <input id="x-coord" name="x" value={newEntityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
+        </div>
+        <div>
+          <label htmlFor="y-coord">Y:</label>
+          <input id="y-coord" name="y"  value={newEntityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
+        </div>
+        <section className="label-section">
+          {newEntityData.labels.map((label, idx) => {
+            return (
+              <article className="label-container" key={`${idx}${label}`}>
+                <span className="entity-label" >{label}</span>
+                <CloseIcon className="label-close-btn" fill="white" stroke="white" width={16} height={16} onClick={() => removeLabel(idx, setEntityData)} />
+              </article>
+            );
+          })}
+        </section>
+        <section className="new-label-container">
+          <input className="new-label-input" name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
+          <button className="new-label-add-btn" type="button" onClick={() => addLabel(newLabel, setEntityData)}>Add</button>
+        </section>
+      </article>
+      <div className="entity-buttons">
+        <button className="entity-save-btn" type="button" onClick={() => handleCreate()}>Create</button>
+        <button className="entity-remove-btn" type="button" onClick={() => handleCancel()}>Cancel</button>
       </div>
-      <div>
-        <label htmlFor="x-coord">X:</label>
-        <input className="number-input" id="x-coord" name="x" value={newEntityData.x} onChange={(e) => handleInputChange(e, setEntityData)} />
-      </div>
-      <div>
-        <label htmlFor="y-coord">Y:</label>
-        <input className="number-input" id="y-coord" name="y"  value={newEntityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
-      </div>
-      <section>
-        {newEntityData.labels.map((label, idx) => {
-          return (
-            <article key={`${idx}${label}`}>
-              <span >{label}</span>
-              <button type="button" onClick={() => removeLabel(idx, setEntityData)}>x</button>
-            </article>
-          );
-        })}
-      </section>
-      <div>
-        <input className="text-input" name="label" placeholder="New label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
-        <button type="button" onClick={() => addLabel(newLabel, setEntityData)}>Add</button>
-      </div>
-      <div>
-        <button type="button" onClick={() => handleCreate()}>Create</button>
-        <button type="button" onClick={() => handleCancel()}>Cancel</button>
-      </div>
-    </article>
+    </form>
   );
 };
 

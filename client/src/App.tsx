@@ -8,7 +8,7 @@ import SelectionList from './SelectionList';
 import { setOpenForm } from './redux/appSlice';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 
-import "./App.css";
+import "./styles/App.css";
 
 
 const handleModeChange = (setInteractiveMode: SetState) => {
@@ -37,13 +37,15 @@ const App = () => {
         </article>
         <article className="controls-container">
           <aside className="selector-container">
-            <label htmlFor="interactive">Interactive Mode:</label>
-            <input id="interactive" type="checkbox" onChange={() => handleModeChange(setInteractiveMode)}/>
+            <div className="selector-mode-switch">
+              <label htmlFor="interactive">Interactive Mode:</label>
+              <input id="interactive" type="checkbox" onChange={() => handleModeChange(setInteractiveMode)}/>
+            </div>
             {isInteractiveMode ? <SelectorInteractive /> : <Selector />}
           </aside>
           <aside className="new-entity-container">
             {!isOpenForm
-              ? <button type="button" onClick={() => dispatch(setOpenForm(!isOpenForm))}>Add Entity</button>
+              ? <button className="add-entity-btn" type="button" onClick={() => dispatch(setOpenForm(!isOpenForm))}>Add Entity</button>
               : <NewEntity />
             }
           </aside>
