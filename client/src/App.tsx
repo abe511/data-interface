@@ -37,11 +37,11 @@ const App = () => {
         </article>
         <article className="controls-container">
           <aside className="selector-container">
+            {isInteractiveMode ? <SelectorInteractive /> : <Selector />}
             <div className="selector-mode-switch">
               <label htmlFor="interactive">Interactive Mode:</label>
               <input id="interactive" type="checkbox" onChange={() => handleModeChange(setInteractiveMode)}/>
             </div>
-            {isInteractiveMode ? <SelectorInteractive /> : <Selector />}
           </aside>
           <aside className="new-entity-container">
             {!isOpenForm

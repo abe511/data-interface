@@ -62,16 +62,18 @@ const NewEntity = () => {
           <label htmlFor="y-coord">Y:</label>
           <input id="y-coord" name="y"  value={newEntityData.y} onChange={(e) => handleInputChange(e, setEntityData)} />
         </div>
-        <section className="label-section">
-          {newEntityData.labels.map((label, idx) => {
-            return (
-              <article className="label-container" key={`${idx}${label}`}>
-                <span className="entity-label" >{label}</span>
-                <CloseIcon className="label-close-btn" fill="white" stroke="white" width={16} height={16} onClick={() => removeLabel(idx, setEntityData)} />
-              </article>
-            );
-          })}
-        </section>
+        <div className="label-section-wrapper">
+          <section className="label-section">
+            {newEntityData.labels.map((label, idx) => {
+              return (
+                <article className="label-container" key={`${idx}${label}`}>
+                  <span className="entity-label" >{label}</span>
+                  <CloseIcon className="label-close-btn" fill="white" stroke="white" width={16} height={16} onClick={() => removeLabel(idx, setEntityData)} />
+                </article>
+              );
+            })}
+          </section>
+        </div>
         <section className="new-label-container">
           <input className="new-label-input" name="label" placeholder="Add new label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
           <button className="new-label-add-btn" type="button" onClick={() => addLabel(newLabel, setEntityData)}>Add</button>

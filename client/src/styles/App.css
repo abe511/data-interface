@@ -1,13 +1,13 @@
 .main-container {
-  @apply flex w-dvw h-dvh;
+  @apply flex flex-col w-dvw h-dvh md:gap-8 lg:flex-row lg:p-2 lg:gap-2;
 }
 
 .display-container {
-  @apply flex-col w-full ;
+  @apply flex flex-col w-full p-8 gap-8 md:h-dvh lg:p-0 lg:gap-2 lg:h-full;
 }
 
 .canvas-wrapper {
-  @apply w-full h-3/6;
+  @apply w-auto h-2/4 border-neutral-700 rounded-md border md:h-2/4 lg:m-0 lg:h-full;
 }
 
 canvas {
@@ -15,39 +15,35 @@ canvas {
 }
 
 .controls-container {
-  @apply flex w-full h-3/6;
+  @apply flex flex-col w-full h-full md:flex-row gap-8 md:h-2/4 lg:gap-2 lg:h-full;
 }
 
 .selector-container {
-  @apply flex-col w-6/12 h-full;
+  @apply flex-col w-auto md:w-2/4;
 }
 
 .selector-mode-switch {
-  @apply flex p-2 gap-2;
-  }
-
-#interactive {
-  @apply w-4;
+  @apply flex gap-2 px-2 pt-4;
 }
 
-.selector {
-  @apply flex flex-col;
+#interactive {
+  @apply w-6 h-6;
 }
 
 .list-container {
-  @apply flex w-full overflow-y-hidden;
+  @apply flex flex-col w-full md:flex-row gap-8 px-8 pb-8 lg:gap-2 lg:p-0;
 }
 
 .entity-list {
-  @apply w-2/4 overflow-y-scroll;
+  @apply w-auto overflow-y-scroll max-h-screen border-neutral-700 rounded-md border md:w-2/4 md:m-0 lg:h-full;
 }
 
 .selection-list {
-  @apply w-2/4 overflow-y-scroll;
+  @apply w-auto overflow-y-scroll max-h-screen border-neutral-700 rounded-md border md:w-2/4 md:h-full md:m-0 lg:h-full;
 }
 
 .new-entity-container {
-  @apply flex flex-col p-2 w-6/12;
+  @apply flex flex-col w-auto md:w-2/4 md:h-max lg:h-full;
 }
 
 .add-entity-btn {
